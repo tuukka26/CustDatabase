@@ -37,22 +37,22 @@ class Trainings extends React.Component {
             {
               columns: [
                 {
-                  Header: "Date",
+                  Header: "Date & Time (Finnish Time GMT+2)",
                   id: "date",
                   accessor: item => {
-                      return <Moment format="DD/MM/YYYY HH:mm">{item.date}</Moment>
+                      return <Moment format="MMMM Do YYYY, h:mm">{item.date}</Moment>
                     },
                   filterable: false,
                   sortable: false
                 },
                 {
-                  Header: "Duration",
+                  Header: "Duration (minutes)",
                   id: "duration",
-                  accessor: item => {
-                      return <div>{item.duration} minutes</div>
-                  },
-                  filterable: false,
-                  sortable: false,
+                  accessor: item => item.duration,
+                  filterMethod: (filter, rows) =>
+                  matchSorter(rows, filter.value, { keys: ["duration"] }),
+                  filterAll: true,
+                  width: 200,
                 },
                 {
                   Header: "Activity",
