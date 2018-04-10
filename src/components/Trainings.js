@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
+import Moment from 'react-moment';
 
 class Trainings extends React.Component {
 
@@ -38,18 +39,20 @@ class Trainings extends React.Component {
                 {
                   Header: "Date",
                   id: "date",
-                  accessor: item => item.date,
-                  filterMethod: (filter, rows) =>
-                  matchSorter(rows, filter.value, { keys: ["date"] }),
-                  filterAll: true
+                  accessor: item => {
+                      return <Moment format="DD/MM/YYYY HH:mm">{item.date}</Moment>
+                    },
+                  filterable: false,
+                  sortable: false
                 },
                 {
                   Header: "Duration",
                   id: "duration",
-                  accessor: item => item.duration,
-                  filterMethod: (filter, rows) =>
-                  matchSorter(rows, filter.value, { keys: ["duration"] }),
-                  filterAll: true
+                  accessor: item => {
+                      return <div>{item.duration} minutes</div>
+                  },
+                  filterable: false,
+                  sortable: false,
                 },
                 {
                   Header: "Activity",

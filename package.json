@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "match-sorter": "^2.2.1",
+    "moment": "^2.22.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-moment": "^0.7.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "react-table": "^6.8.0"
