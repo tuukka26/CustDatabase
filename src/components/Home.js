@@ -4,7 +4,8 @@ class Home extends React.Component {
   render () {
     return (
       <div className="App">
-        <h2>This is homepage</h2>
+        <br />
+        <h2>Welcome to our Customer & Training database!</h2>
       </div>
     );
   }

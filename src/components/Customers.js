@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
+import Notifications, {notify} from 'react-notify-toast';
+import Addcust from './Addcust';
 
 class Customers extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { customers: []};
+    this.state = { customers: [] };
   }
 
   componentDidMount() {
     this.loadCustomers();
   }
 
-//Load all customers from API
+// Load all customers from API
   loadCustomers = () => {
     fetch('https://customerrest.herokuapp.com/api/customers')
     .then(res => res.json())
@@ -23,10 +25,40 @@ class Customers extends React.Component {
     })
   }
 
+// Delete a customer
+deleteCust = (value) => {
+  fetch(value, {method: 'DELETE'})
+  .then(res =>
+    this.loadCustomers())
+    notify.show('Customer deleted succesfully', 'success', 3000)
+}
+
+// Add a customer
+addCust = (newCust) => {
+  fetch('https://customerrest.herokuapp.com/api/customers', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(newCust)
+  })
+  .then(res =>
+    this.loadCustomers())
+}
+
+// Show customer's trainings
+showTrainings = (link, training) => {
+  fetch(link)
+  .then(res =>
+  this.loadCustomers())
+}
+
   render () {
     return(
       <div className="container">
+        <Notifications />
         <h2>List of Customers</h2>
+        <div className="row">
+          <Addcust addCust={this.addCust} />
+        </div>
         <ReactTable
           data={this.state.customers}
           filterable
@@ -90,6 +122,13 @@ class Customers extends React.Component {
                   filterMethod: (filter, rows) =>
                   matchSorter(rows, filter.value, { keys: ["phone"] }),
                   filterAll: true
+                },
+                {
+                  Header: "Delete",
+                  accessor: "links[0].href",
+                  filterable: false,
+                  sortable: false,
+                  Cell: ({value}) => (<button type="button" class="btn btn-danger" onClick={() => {this.deleteCust(value)}}>Delete</button>)
                 },
               ]
             }
