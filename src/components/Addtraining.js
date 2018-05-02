@@ -21,7 +21,6 @@ class Addtraining extends Component {
     event.preventDefault();
 
     const newTraining = { date: this.state.date,  activity: this.state.activity, duration: this.state.duration, customer: this.state.customer };
-    console.log(this.state.date + " - " + this.state.customer.firstname);
     this.props.addTraining(newTraining);
     this.addTrainingDialog.hide();
   }

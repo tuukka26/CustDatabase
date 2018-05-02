@@ -89,8 +89,9 @@ class Trainings extends React.Component {
                   Header: "Customer",
                   id: "customer",
                   accessor: item => item.customer.firstname + " " + item.customer.lastname,
-                  filterable: false,
-                  sortable: false
+                  filterMethod: (filter, rows) =>
+                  matchSorter(rows, filter.value, { keys: ["customer"] }),
+                  filterAll: true,
                 },
                 {
                   Header: "Delete",

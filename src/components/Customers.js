@@ -30,7 +30,7 @@ deleteCust = (value) => {
   fetch(value, {method: 'DELETE'})
   .then(res =>
     this.loadCustomers())
-    notify.show('Customer deleted succesfully', 'success', 3000)
+    notify.show('Customer deleted', 'warning', 3000)
 }
 
 // Add a customer
@@ -42,13 +42,7 @@ addCust = (newCust) => {
   })
   .then(res =>
     this.loadCustomers())
-}
-
-// Show customer's trainings
-showTrainings = (link, training) => {
-  fetch(link)
-  .then(res =>
-  this.loadCustomers())
+    notify.show('Customer added', 'success', 3000)
 }
 
   render () {
