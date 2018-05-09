@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SkyLight from 'react-skylight';
+import moment from 'moment';
 
 class Addtraining extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Addtraining extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
-    const newTraining = { date: this.state.date,  activity: this.state.activity, duration: this.state.duration, customer: this.state.customer };
+    const newTraining = { date: moment(this.state.date, "YYYY-MM-DD HH:mm"),  activity: this.state.activity, duration: this.state.duration, customer: this.state.customer };
     this.props.addTraining(newTraining);
     this.addTrainingDialog.hide();
   }
@@ -46,7 +47,7 @@ class Addtraining extends Component {
         <SkyLight hideOnOverlayClicked ref={ref => this.addTrainingDialog = ref} title="Add new training to database">
           <form>
             <div className="form-group">
-              <input placeholder="Date" className="form-control" name="date" type="date" onChange={this.changeHandler} />
+              <input placeholder="Date" className="form-control" name="date" type="datetime-local" onChange={this.changeHandler} />
             </div>
             <div className="form-group">
               <input placeholder="Activity" className="form-control" name="activity" onChange={this.changeHandler} />

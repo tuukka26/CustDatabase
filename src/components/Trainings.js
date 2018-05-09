@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import ReactTable from 'react-table';
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
 import Moment from 'react-moment';
-import Notifications, {notify} from 'react-notify-toast';
 import Addtraining from './Addtraining'
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 class Trainings extends React.Component {
 
@@ -48,8 +49,11 @@ class Trainings extends React.Component {
     return(
       <div className="container">
         <h2>List of Trainings</h2>
-        <div className="row">
-          <Addtraining addTraining={this.addTraining} />
+        <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="Button group">
+          <div className="btn-group" role="group" aria-label="First group">
+            <Addtraining addTraining={this.addTraining} />
+          </div>
+          <Link style={{margin: 10}} class="btn btn-link" to="/calendar">See calendar view</Link>
         </div>
         <ReactTable
           data={this.state.trainings}
@@ -63,7 +67,7 @@ class Trainings extends React.Component {
                   Header: "Date & Time (Finnish Time GMT+2)",
                   id: "date",
                   accessor: item => {
-                      return <Moment format="MMMM Do YYYY">{item.date}</Moment>
+                      return <Moment format="MMMM Do YYYY @ HH:mm">{item.date}</Moment>
                     },
                   filterable: false,
                   sortable: false
